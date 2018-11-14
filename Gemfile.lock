@@ -1,0 +1,94 @@
+PATH
+  remote: .
+  specs:
+    genba (0.1.7)
+      oj (~> 2.18)
+      rest-client (~> 2.0)
+      ruby-mcrypt (= 0.2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activemodel (5.2.0)
+      activesupport (= 5.2.0)
+    activesupport (5.2.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
+    byebug (10.0.2)
+    coderay (1.1.2)
+    concurrent-ruby (1.0.5)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
+    diff-lcs (1.3)
+    domain_name (0.5.20180417)
+      unf (>= 0.0.5, < 1.0.0)
+    hashdiff (0.3.7)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    i18n (1.0.1)
+      concurrent-ruby (~> 1.0)
+    method_source (0.9.0)
+    mime-types (3.2.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2018.0812)
+    minitest (5.11.3)
+    netrc (0.11.0)
+    oj (2.18.5)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
+      pry (~> 0.10)
+    public_suffix (3.0.2)
+    rake (10.5.0)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
+    rspec (3.7.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+    rspec-core (3.7.1)
+      rspec-support (~> 3.7.0)
+    rspec-expectations (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-mocks (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-support (3.7.1)
+    ruby-mcrypt (0.2.0)
+    safe_yaml (1.0.4)
+    thread_safe (0.3.6)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.5)
+    webmock (3.4.1)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activemodel
+  bundler (~> 1.16)
+  byebug
+  genba!
+  pry
+  pry-byebug
+  rake
+  rspec (~> 3.0)
+  webmock
+
+BUNDLED WITH
+   1.16.1

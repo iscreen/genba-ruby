@@ -1,0 +1,29 @@
+[
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "name": "Genba Test Game",
+    "platform": "PC",
+    "publisher": "Sega",
+    "sku": "R",
+    "protectionSystem": "Steam Works",
+    "contentMeta": null
+  },
+  {
+    "skuId": "867ecace-a367-421b-b90e-48fa95c708f7",
+    "name": "Medieval II : Total War Collection",
+    "platform": "PC",
+    "publisher": "Sega",
+    "sku": "R",
+    "protectionSystem": "Steam Works",
+    "contentMeta": null
+  },
+  {
+    "skuId": "c64fdf25-f863-42d4-9544-ee04af67f3a9",
+    "name": "Yakuza Zero",
+    "platform": "PC",
+    "publisher": "Sega",
+    "sku": "A002_ROW",
+    "protectionSystem": "Steam Works",
+    "contentMeta": null
+  }
+]

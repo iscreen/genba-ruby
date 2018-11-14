@@ -1,0 +1,123 @@
+[
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "product": "Genba Test Game",
+    "sku": "R",
+    "currencyId": "c048fd5d-f519-479c-b5b6-2a0d42b1ccfa",
+    "currencyName": "Australian Dollars",
+    "currencyCode": "AUD",
+    "wsp": 5.5154,
+    "srp": 7.99,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "product": "Genba Test Game",
+    "sku": "R",
+    "currencyId": "62f009d3-3c57-40ab-9ab2-fca35f4f69fe",
+    "currencyName": "Brazilian Real",
+    "currencyCode": "BRL",
+    "wsp": 8.9354,
+    "srp": 13.99,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "product": "Genba Test Game",
+    "sku": "R",
+    "currencyId": "3a3e854c-4d88-4725-a911-00b0c65187d8",
+    "currencyName": "Canadian Dollars",
+    "currencyCode": "CAD",
+    "wsp": 6.9051,
+    "srp": 0.00,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "product": "Genba Test Game",
+    "sku": "R",
+    "currencyId": "4c25b8ee-af38-4640-8886-e0b2856ac114",
+    "currencyName": "Euro",
+    "currencyCode": "EUR",
+    "wsp": 4.4297,
+    "srp": 6.99,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "product": "Genba Test Game",
+    "sku": "R",
+    "currencyId": "f3ecea5e-962e-400c-921e-b66dda58360f",
+    "currencyName": "Great British Pound",
+    "currencyCode": "GBP",
+    "wsp": 3.1594,
+    "srp": 4.99,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "product": "Genba Test Game",
+    "sku": "R",
+    "currencyId": "78cc2664-6805-4c85-be3a-93d3dc298a04",
+    "currencyName": "Russian Roubles",
+    "currencyCode": "RUB",
+    "wsp": 173.2583,
+    "srp": 269.00,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "product": "Genba Test Game",
+    "sku": "R",
+    "currencyId": "f2d897c8-de03-402d-9f1f-61ae995858be",
+    "currencyName": "United States Dollar",
+    "currencyCode": "USD",
+    "wsp": 5.3091,
+    "srp": 6.99,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "867ecace-a367-421b-b90e-48fa95c708f7",
+    "product": "Medieval II : Total War Collection",
+    "sku": "R",
+    "currencyId": "78cc2664-6805-4c85-be3a-93d3dc298a04",
+    "currencyName": "Russian Roubles",
+    "currencyCode": "RUB",
+    "wsp": 559.6966,
+    "srp": 869.00,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "c64fdf25-f863-42d4-9544-ee04af67f3a9",
+    "product": "Yakuza Zero",
+    "sku": "A002_ROW",
+    "currencyId": "c048fd5d-f519-479c-b5b6-2a0d42b1ccfa",
+    "currencyName": "Australian Dollars",
+    "currencyCode": "AUD",
+    "wsp": 17.2629,
+    "srp": 24.99,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "c64fdf25-f863-42d4-9544-ee04af67f3a9",
+    "product": "Yakuza Zero",
+    "sku": "A002_ROW",
+    "currencyId": "3a3e854c-4d88-4725-a911-00b0c65187d8",
+    "currencyName": "Canadian Dollars",
+    "currencyCode": "CAD",
+    "wsp": 19.7491,
+    "srp": 0.00,
+    "isFlashPrice": false
+  },
+  {
+    "skuId": "c64fdf25-f863-42d4-9544-ee04af67f3a9",
+    "product": "Yakuza Zero",
+    "sku": "A002_ROW",
+    "currencyId": "f2d897c8-de03-402d-9f1f-61ae995858be",
+    "currencyName": "United States Dollar",
+    "currencyCode": "USD",
+    "wsp": 15.1891,
+    "srp": 19.99,
+    "isFlashPrice": false
+  }
+]

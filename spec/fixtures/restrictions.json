@@ -1,0 +1,29 @@
+[
+  {
+    "productName": "Genba Test Game",
+    "productSKU": "R",
+    "productSKUId": "6a652bc3-7d18-4cbc-ab44-162b7855d3ac",
+    "blacklistedCountries": "China, Hong Kong, Japan, Korea, Democratic People's Republic of, Korea, Republic of, Taiwan, Province of China",
+    "blacklistedCountriesISO": "CN, HK, JP, KP, KR, TW",
+    "whitelistCountries": "",
+    "whitelistCountriesISO": ""
+  },
+  {
+    "productName": "Medieval II : Total War Collection",
+    "productSKU": "R",
+    "productSKUId": "867ecace-a367-421b-b90e-48fa95c708f7",
+    "blacklistedCountries": "",
+    "blacklistedCountriesISO": "",
+    "whitelistCountries": "Russia, Russian Federation",
+    "whitelistCountriesISO": "RF, RU"
+  },
+  {
+    "productName": "Yakuza Zero",
+    "productSKU": "A002_ROW",
+    "productSKUId": "c64fdf25-f863-42d4-9544-ee04af67f3a9",
+    "blacklistedCountries": "Albania, Andorra, Argentina, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bolivia, Plurinational State of, Bosnia and Herzegovina, Brazil, Bulgaria, Cambodia, Chile, China, Colombia, Croatia, Cyprus, Czech Republic, Denmark, Ecuador, Estonia, Falkland Islands (Malvinas), Falkland Islands (Malvinas), Faroe Islands, Finland, France, French Guiana, French Guiana, French Polynesia, Georgia, Germany, Gibraltar, Greece, Greenland, Guadeloupe, Guernsey, Guyana, Holy See (Vatican City State), Hong Kong, Hungary, Iceland, India, Ireland, Isle of Man, Italy, Japan, Jersey, Kazakhstan, Korea, Democratic People's Republic of, Korea, Republic of, Kyrgyzstan, Lao People's Democratic Republic, Latvia, Liechtenstein, Lithuania, Luxembourg, Macedonia, The Former Yugoslav Republic of, Malta, Martinique, Mayotte, Moldova, Republic of, Monaco, Montenegro, Myanmar, Netherlands, New Caledonia, Norway, Paraguay, Peru, Poland, Portugal, Romania, Russian Federation, Saint Martin (French part), San Marino, Serbia, Slovakia, Slovenia, Spain, Suriname, Sweden, Switzerland, Taiwan, Province of China, Tajikistan, Thailand, Turkey, Turkmenistan, Ukraine, United Kingdom, Uruguay, Uzbekistan, Venezuela, Bolivarian Republic of, Vietnam",
+    "blacklistedCountriesISO": "AD, AL, AM, AR, AT, AZ, BA, BE, BG, BO, BR, BY, CH, CL, CN, CO, CY, CZ, DE, DK, EC, EE, ES, FI, FK, FK, FO, FR, GB, GE, GF, GF, GG, GI, GL, GP, GR, GY, HK, HR, HU, IE, IM, IN, IS, IT, JE, JP, KG, KH, KP, KR, KZ, LA, LI, LT, LU, LV, MC, MD, ME, MF, MK, MM, MQ, MT, NC, NL, NO, PE, PF, PL, PT, PY, RF, RO, RS, SE, SI, SK, SM, SR, TH, TJ, TM, TR, TW, UA, UY, UZ, VA, VE, VN, YT",
+    "whitelistCountries": "",
+    "whitelistCountriesISO": ""
+  }
+]

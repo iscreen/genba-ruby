@@ -1,0 +1,36 @@
+{
+  "status": 0,
+  "importTransactionId": null,
+  "requestId": "18dac817-21ef-4d0d-b353-6014f4450249",
+  "currencyId": "f3ecea5e-962e-400c-921e-b66dda58360f",
+  "keys": [
+    {
+      "keyCode": "00000000-1111-42AC-9996-A84DA3DC0EE9",
+      "keyId": "00000000-25a1-4a4f-8c4c-0010f95c3dae",
+      "status": "Allocated",
+      "product": "Genba Test Product",
+      "sku": "EFIS",
+      "parentKeyId": null,
+      "productSKUId": "00000000-7d18-4cbc-ab44-162b7855d3ac"
+    },
+    {
+      "keyCode": "00000000-1111-4978-B5AE-1213C50CB366",
+      "keyId": "00000000-90ec-4b9a-9e4a-001103517351",
+      "status": "Allocated",
+      "product": "Genba Test Product",
+      "sku": "EFIS",
+      "parentKeyId": null,
+      "productSKUId": "00000000-7d18-4cbc-ab44-162b7855d3ac"
+    },
+    {
+      "keyCode": "00000000-1111-4F82-BD7D-FDB6457E385C",
+      "keyId": "00000000-3dc6-48f9-b9ba-001132162dbe",
+      "status": "Allocated",
+      "product": "Genba Test Product",
+      "sku": "EFIS",
+      "parentKeyId": null,
+      "productSKUId": "00000000-7d18-4cbc-ab44-162b7855d3ac"
+    }
+  ],
+  "statusText": "Keys available in response."
+}

@@ -1,0 +1,18 @@
+{
+  "status": 0,
+  "importTransactionId": null,
+  "requestId": "608d0064-c473-46c7-ae25-c24d65572c72",
+  "currencyId": "f3ecea5e-962e-400c-921e-b66dda58360f",
+  "keys": [
+    {
+      "keyCode": "00000000-9A61-4C06-93F4-3E38CB56B9F2",
+      "keyId": "00000000-5430-4a78-b30c-0010f5e11832",
+      "status": "Allocated",
+      "product": "Genba Test Product",
+      "sku": "EFIS",
+      "parentKeyId": null,
+      "productSKUId": "00000000-7d18-4cbc-ab44-162b7855d3ac"
+    }
+  ],
+  "statusText": "Keys available in response."
+}
