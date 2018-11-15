@@ -16,9 +16,9 @@ module Genba
     #
     # ==== Options
     def initialize(config = {})
-      @app_id = config[:app_id]
-      @username = config[:username]
-      @api_key = config[:api_key]
+      @app_id = config[:app_id]&.strip
+      @username = config[:username]&.strip
+      @api_key = config[:api_key]&.strip
     end
 
     def generate_token
@@ -72,6 +72,10 @@ module Genba
 
     def direct_entitlements
       DirectEntitlements.new(self)
+    end
+
+    def reports
+      Reports.new(self)
     end
 
     private

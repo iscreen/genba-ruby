@@ -8,11 +8,12 @@ require 'active_model'
 require 'genba/version'
 require 'genba/key_black_list_request'
 require 'genba/key_report_request'
+require 'genba/client/direct_entitlements'
 require 'genba/client/keys'
 require 'genba/client/prices'
 require 'genba/client/products'
+require 'genba/client/reports'
 require 'genba/client/restrictions'
-require 'genba/client/direct_entitlements'
 require 'genba/client'
 
 # Genba API module
