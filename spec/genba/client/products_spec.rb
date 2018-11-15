@@ -17,9 +17,9 @@ RSpec.describe Genba::Client::Products do
     end
 
     it 'GET - skuId' do
-      stub_request(:get, 'https://api.genbagames.com/api/product')
-        .to_return(body: ApiStubHelpers.products("710362cb-8022-45c1-babf-dae862311c14"))
-      products = @client.products.get_products
+      stub_request(:get, /api.genbagames.com\/api\/product\?skuId=/)
+        .to_return(body: ApiStubHelpers.products('710362cb-8022-45c1-babf-dae862311c14'))
+      products = @client.products.get_products(skuId: '710362cb-8022-45c1-babf-dae862311c14')
       product = products.first
       expect(product.key?('skuId')).to be_truthy
       expect(product.key?('name')).to be_truthy
