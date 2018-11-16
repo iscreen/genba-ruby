@@ -31,10 +31,7 @@ module Genba
       end
 
       def get_key_status(key_id, params = {}, headers = {})
-        payload = params.merge(
-          id: key_id
-        )
-        @client.rest_get_with_token('/keys', payload, headers)
+        @client.rest_get_with_token("/keys/#{key_id}", params, headers)
       end
 
       def get_report_usage(keys = nil, headers = {})
