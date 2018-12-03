@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    genba (0.1.7)
+    genba (0.1.8)
       oj (~> 2.18)
       rest-client (~> 2.0)
       ruby-mcrypt (= 0.2.0)
@@ -93,4 +93,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.16.2
+   1.17.1
