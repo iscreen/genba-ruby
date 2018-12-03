@@ -18,7 +18,8 @@ module Genba
       def get_keys(sku_id, quantity = 1, params = {}, headers = {})
         payload = params.merge(
           skuId: sku_id,
-          quantity: quantity
+          quantity: quantity,
+          customerAccountId: @client.customer_account_id
         )
         @client.rest_get_with_token('/keys', payload, headers)
       end
@@ -38,6 +39,7 @@ module Genba
         raise 'ReportUsage keys should be array' unless keys.is_a?(Array)
         raise 'ReportUseag keys should be a KeyReportRequest class' unless key_report_request?(keys)
         payload = keys.map(&:to_genba_json_payload)
+        Genba::Util.log_debug "get_report_usage payload: #{payload.inspect}"
         @client.rest_post_with_token('/keyReport', payload, headers)
       end
 

@@ -4,6 +4,7 @@ require 'spec_helper'
 
 RSpec.describe Genba::Client::Keys do
   let(:sku_id) { '98b9d3d8-dac2-4454-96cd-0011607500f0' }
+
   it '#get_test_keys' do
     stub_request(:get, /https:\/\/api.genbagames.com\/api\/testKeys\?skuId=/)
       .to_return(body: ApiStubHelpers.test_keys)
@@ -16,7 +17,7 @@ RSpec.describe Genba::Client::Keys do
   end
 
   it '#get_keys' do
-    stub_request(:get, /https:\/\/api.genbagames.com\/api\/keys\?quantity=.+&skuId=.*/)
+    stub_request(:get, /https:\/\/api.genbagames.com\/api\/keys\?customerAccountId=.*&quantity=.+&skuId=.*/)
       .to_return(body: ApiStubHelpers.single_key)
 
     key_res = @client.keys.get_keys(sku_id)
@@ -36,7 +37,7 @@ RSpec.describe Genba::Client::Keys do
   end
 
   it '#get_keys - quantity' do
-    stub_request(:get, /https:\/\/api.genbagames.com\/api\/keys\?quantity=.+&skuId=.*/)
+    stub_request(:get, /https:\/\/api.genbagames.com\/api\/keys\?customerAccountId=.*&quantity=.+&skuId=.*/)
       .to_return(body: ApiStubHelpers.keys)
 
     key_res = @client.keys.get_keys(sku_id, 3)
@@ -57,7 +58,7 @@ RSpec.describe Genba::Client::Keys do
   end
 
   it '#get_key_status' do
-    stub_request(:get, /https:\/\/api.genbagames.com\/api\/keys\?id=.*/)
+    stub_request(:get, /https:\/\/api.genbagames.com\/api\/keys\/.*/)
       .to_return(body: ApiStubHelpers.key_allocated_status(sku_id))
 
     key_res = @client.keys.get_key_status(sku_id)
@@ -82,8 +83,17 @@ RSpec.describe Genba::Client::Keys do
     it '#get_report_usage - accepted' do
       stub_request(:post, 'https://api.genbagames.com/api/keyReport')
         .to_return(body: ApiStubHelpers.key_report_usage_accept)
+
       key = KeyReportRequest.new(
-        key_id: '00000000-ffff-2222-3333-444444444444',
+        key: '00000000000000000000000000000000',
+        country_iso: 'US',
+        sale_date: DateTime.now,
+        user_ip_address: '182.212.212.22',
+        e_tailer_buying_price: 3.8,
+        e_tailer_buying_price_currency_code: 'USD',
+        e_tailer_selling_price_net: 3.2,
+        e_tailer_selling_price_gross: 3.8,
+        e_tailer_selling_price_currency_code: 'USD'
       )
       key_res = @client.keys.get_report_usage([key])
 
@@ -96,8 +106,17 @@ RSpec.describe Genba::Client::Keys do
     it '#get_report_usage - rejected' do
       stub_request(:post, 'https://api.genbagames.com/api/keyReport')
         .to_return(body: ApiStubHelpers.key_report_usage_reject)
+
       key = KeyReportRequest.new(
         key_id: '00000000-ffff-2222-3333-444444444444',
+        country_iso: 'US',
+        sale_date: DateTime.now,
+        user_ip_address: '182.212.212.22',
+        e_tailer_buying_price: 3.8,
+        e_tailer_buying_price_currency_code: 'USD',
+        e_tailer_selling_price_net: 3.2,
+        e_tailer_selling_price_gross: 3.8,
+        e_tailer_selling_price_currency_code: 'USD'
       )
       key_res = @client.keys.get_report_usage([key])
 
