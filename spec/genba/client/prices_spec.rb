@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe Genba::Client::Prices do
   it '#get_prices' do
-    stub_request(:get, 'https://api.genbagames.com/api/prices')
+    stub_request(:get, /https:\/\/api.genbagames.com\/api\/prices\?customerAccountId=/)
       .to_return(body: ApiStubHelpers.prices)
     prices = @client.prices.get_prices
     expect(prices.length).to be > 0

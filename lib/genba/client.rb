@@ -3,6 +3,8 @@
 module Genba
   # Genba API Client
   class Client
+    attr_accessor :customer_account_id
+
     API_URL = 'https://api.genbagames.com/api'.freeze
 
     @expires_on = nil
@@ -15,10 +17,11 @@ module Genba
     # * +config+ - Genba API credential attribute
     #
     # ==== Options
-    def initialize(config = {})
-      @app_id = config[:app_id]&.strip
-      @username = config[:username]&.strip
-      @api_key = config[:api_key]&.strip
+    def initialize(app_id:, username:, api_key:, customer_account_id:)
+      @app_id = app_id.strip
+      @username = username.strip
+      @api_key = api_key.strip
+      @customer_account_id = customer_account_id.strip
     end
 
     def generate_token
@@ -38,8 +41,9 @@ module Genba
 
     def rest_get_with_token(path, query_params = {}, headers = {})
       genba_headers = token.merge(headers)
+      Genba::Util.log_debug "API Headers: #{genba_headers.inspect}"
       api_url = "#{API_URL}#{path}"
-      api_url += "#{api_url}?#{query_params.to_query}" unless query_params.empty?
+      api_url += "?#{query_params.to_query}" unless query_params.empty?
       Genba::Util.log_info "api_url: #{api_url}"
       response = RestClient.get(api_url, genba_headers)
       from_rest_client_response(response)
@@ -47,6 +51,7 @@ module Genba
 
     def rest_put_with_token(path, body = {}, headers = {})
       genba_headers = token.merge(headers)
+      Genba::Util.log_debug "API Headers: #{genba_headers.inspect}"
       Genba::Util.log_info "api_url: #{API_URL}#{path}"
       response = RestClient.put("#{API_URL}#{path}", encode_json(body), genba_headers)
       from_rest_client_response(response)
@@ -54,7 +59,9 @@ module Genba
 
     def rest_post_with_token(path, body = {}, headers = {})
       genba_headers = token.merge(headers)
+      Genba::Util.log_debug "API Headers: #{genba_headers.inspect}"
       Genba::Util.log_info "api_url: #{API_URL}#{path}"
+      Genba::Util.log_info "body: #{body}"
       response = RestClient.post("#{API_URL}#{path}", encode_json(body), genba_headers)
       from_rest_client_response(response)
     end

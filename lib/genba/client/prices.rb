@@ -9,7 +9,10 @@ module Genba
       end
 
       def get_prices(params = {}, headers = {})
-        @client.rest_get_with_token('/prices', params, headers)
+        payload = params.merge(
+          customerAccountId: @client.customer_account_id
+        )
+        @client.rest_get_with_token('/prices', payload, headers)
       end
     end
   end

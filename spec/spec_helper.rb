@@ -4,6 +4,7 @@ require 'webmock/rspec'
 require 'byebug'
 require 'genba'
 require 'api_stub_helpers'
+require 'uuidtools'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -20,9 +21,9 @@ RSpec.configure do |config|
     @client = Genba.client(
       username: 'api_genba_user',
       app_id: '00000000-0000-0000-0000-000000000000',
-      api_key: '00000000000000000000000000000000'
+      api_key: '00000000000000000000000000000000',
+      customer_account_id: '00000000000000000000000000000000'
     )
-
     stub_request(:post, 'https://api.genbagames.com/api/token')
       .to_return(body: ApiStubHelpers.token)
   end
