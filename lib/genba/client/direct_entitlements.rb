@@ -20,7 +20,8 @@ module Genba
         e_tailer_selling_price_net:,
         e_tailer_selling_price_gross:,
         e_tailer_selling_price_currency_code:,
-        headers: {}
+        headers: {},
+        options: {}
       )
         params = {
           skuId: sku_id,
@@ -37,12 +38,12 @@ module Genba
         }.select { |_, v| !v.nil? }
         params[:saleDate] = sale_date.strftime('%FT%T') if sale_date
         Genba::Util.log_debug "DirectEntitlements activate payload: #{params.inspect}"
-        @client.rest_get_with_token('/directentitlement/activate', params, headers)
+        @client.rest_get_with_token('/directentitlement/activate', params, headers, options)
       end
 
       # Use this method to redeem keys already sold for a Direct Entitlement SKU and link them to the
       # end-user's account. You will not be charged at the point of calling this method.
-      def redeem(sku_id:, key_id:, end_user_id:, end_user_ticket:, headers: {})
+      def redeem(sku_id:, key_id:, end_user_id:, end_user_ticket:, headers: {}, options: {})
         params = {
           customerAccountId: @client.customer_account_id,
           skuId: sku_id,
@@ -50,7 +51,7 @@ module Genba
           endUserId: end_user_id,
           endUserTicket: end_user_ticket
         }
-        @client.rest_get_with_token('/directentitlement/redeem', params, headers)
+        @client.rest_get_with_token('/directentitlement/redeem', params, headers, options)
       end
     end
   end

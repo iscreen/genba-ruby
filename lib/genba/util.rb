@@ -3,24 +3,21 @@ require 'cgi'
 module Genba
   module Util
     def self.log_error(message, data = {})
-      if !Genba.logger.nil? ||
-        !Genba.log_level.nil? && Genba.log_level <= Genba::LEVEL_ERROR
+      if !Genba.log_level.nil? && Genba.log_level <= Genba::LEVEL_ERROR
         log_internal(message, data, color: :cyan,
                                     level: Genba::LEVEL_ERROR, logger: Genba.logger, out: $stderr)
       end
     end
 
     def self.log_info(message, data = {})
-      if !Genba.logger.nil? ||
-        !Genba.log_level.nil? && Genba.log_level <= Genba::LEVEL_INFO
+      if !Genba.log_level.nil? && Genba.log_level <= Genba::LEVEL_INFO
         log_internal(message, data, color: :cyan,
                                     level: Genba::LEVEL_INFO, logger: Genba.logger, out: $stdout)
       end
     end
 
     def self.log_debug(message, data = {})
-      if !Genba.logger.nil? ||
-        !Genba.log_level.nil? && Genba.log_level <= Genba::LEVEL_DEBUG
+      if !Genba.log_level.nil? && Genba.log_level <= Genba::LEVEL_DEBUG
         log_internal(message, data, color: :blue,
                                     level: Genba::LEVEL_DEBUG, logger: Genba.logger, out: $stdout)
       end
@@ -35,7 +32,7 @@ module Genba
       magenta: 5, light_magenta: 65,
       cyan:    6, light_cyan:    66,
       white:   7, light_white:   67,
-      default: 9,
+      default: 9
     }.freeze
     private_constant :COLOR_CODES
 
