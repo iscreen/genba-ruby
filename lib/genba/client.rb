@@ -3,7 +3,8 @@
 module Genba
   # Genba API Client
   class Client
-    attr_accessor :customer_account_id
+    attr_accessor :customer_account_id,
+                  :open_timeout, :read_timeout, :max_retry, :retry_delay
 
     API_URL = 'https://api.genbagames.com/api'.freeze
 
@@ -17,11 +18,15 @@ module Genba
     # * +config+ - Genba API credential attribute
     #
     # ==== Options
-    def initialize(app_id:, username:, api_key:, customer_account_id:)
+    def initialize(app_id:, username:, api_key:, customer_account_id:, options: {})
       @app_id = app_id.strip
       @username = username.strip
       @api_key = api_key.strip
       @customer_account_id = customer_account_id.strip
+      @open_timeout = options[:open_timeout] || 15
+      @read_timeout = options[:read_timeout] || 60
+      @max_retry = options[:max_retry] || 0
+      @retry_delay = options[:retry_delay] || 2
     end
 
     def generate_token
@@ -39,31 +44,69 @@ module Genba
       raw_token
     end
 
-    def rest_get_with_token(path, query_params = {}, headers = {})
+    def rest_get_with_token(path, query_params = {}, headers = {}, options = {})
       genba_headers = token.merge(headers)
-      Genba::Util.log_debug "API Headers: #{genba_headers.inspect}"
       api_url = "#{API_URL}#{path}"
       api_url += "?#{query_params.to_query}" unless query_params.empty?
-      Genba::Util.log_info "api_url: #{api_url}"
-      response = RestClient.get(api_url, genba_headers)
+      response = execute_request(method: :get, url: api_url,
+                                 headers: genba_headers, options: options)
       from_rest_client_response(response)
     end
 
-    def rest_put_with_token(path, body = {}, headers = {})
+    def rest_put_with_token(path, body = {}, headers = {}, options = {})
       genba_headers = token.merge(headers)
-      Genba::Util.log_debug "API Headers: #{genba_headers.inspect}"
-      Genba::Util.log_info "api_url: #{API_URL}#{path}"
-      response = RestClient.put("#{API_URL}#{path}", encode_json(body), genba_headers)
+      response = execute_request(method: :put, url: "#{API_URL}#{path}",
+                                 payload: encode_json(body), headers: genba_headers, options: options)
       from_rest_client_response(response)
     end
 
-    def rest_post_with_token(path, body = {}, headers = {})
+    def rest_post_with_token(path, body = {}, headers = {}, options = {})
       genba_headers = token.merge(headers)
-      Genba::Util.log_debug "API Headers: #{genba_headers.inspect}"
-      Genba::Util.log_info "api_url: #{API_URL}#{path}"
-      Genba::Util.log_info "body: #{body}"
-      response = RestClient.post("#{API_URL}#{path}", encode_json(body), genba_headers)
+      response = execute_request(method: :post, url: "#{API_URL}#{path}",
+                                 payload: encode_json(body), headers: genba_headers, options: options)
       from_rest_client_response(response)
+    end
+
+    def execute_request(method:, url:, payload: {}, headers: {}, options: {})
+      request_opts = {
+        headers: headers,
+        method: method,
+        payload: payload,
+        url: url
+      }
+      other_opts = {
+        open_timeout: options[:open_timeout] || @open_timeout,
+        read_timeout: options[:read_timeout] || @read_timeout,
+        max_retry: options[:max_retry] || @max_retry
+      }
+
+      Genba::Util.log_debug "API Headers: #{headers.inspect}"
+      Genba::Util.log_debug "Options: #{other_opts}"
+      Genba::Util.log_info "#{method.upcase}: #{url}"
+      Genba::Util.log_info "payload: #{payload}" if payload.present?
+
+      request_opts.merge! other_opts
+      execute_request_with_rescues(request_opts, other_opts[:max_retry])
+    end
+
+    def execute_request_with_rescues(request_opts, max_retry)
+      num_try = 0
+      begin
+        response = RestClient::Request.execute(request_opts)
+      rescue StandardError => e
+        Genba::Util.log_error "#{e.class} => #{e.message}"
+
+        num_try += 1
+        sleep @retry_delay
+
+        if num_try <= max_retry
+          Genba::Util.log_error "retry ====> #{num_try}"
+          retry
+        end
+
+        raise e
+      end
+      response
     end
 
     def products
