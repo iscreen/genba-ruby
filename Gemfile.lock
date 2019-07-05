@@ -31,6 +31,7 @@ GEM
       domain_name (~> 0.5)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    jwt (1.5.6)
     method_source (0.9.0)
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
@@ -85,6 +86,7 @@ DEPENDENCIES
   bundler (~> 1.16)
   byebug
   genba!
+  jwt
   pry
   pry-byebug
   rake

@@ -1,5 +1,6 @@
 require 'base64'
 require 'digest'
+require 'jwt'
 require 'mcrypt'
 require 'rest-client'
 require 'logger'
