@@ -2,38 +2,30 @@
 
 module Genba
   class Client
-    # Products client
     class Products
       def initialize(client)
         @client = client
       end
 
-      def get_products(sku_id: nil, country_iso: nil, include_meta: false, headers: {})
+      # Return information about a product
+      def get(sku_id, headers: {})
         payload = {
-          skuId: sku_id,
-          countryISO: country_iso,
-          includeMeta: include_meta
         }.select { |_, v| !v.nil? }
 
-        @client.rest_get_with_token('/product', payload, headers)
+        @client.rest_get_with_token("/products/#{sku_id}", payload, headers)
       end
 
-      def get_changes(from_date: nil, country_iso: nil, include_meta: false, params: {}, headers: {})
-        payload = params.merge(
-          countryISO: country_iso,
-          includeMeta: include_meta
-        ).select { |_, v| !v.nil? }
-        payload[:fromDate] = from_date.strftime('%FT%T') if from_date
-        @client.rest_get_with_token('/product/changes', payload, headers)
-      end
+      # Gets a collection of available products
+      def list(country_code: nil, include_meta: nil, from_date: nil, deleted: nil, continuation_token: nil, headers: {})
+        payload = {
+          countryCode: country_code,
+          includeMeta: include_meta,
+          fromDate: from_date,
+          deleted: deleted,
+          continuationtoken: continuation_token
+        }.select { |_, v| !v.nil? }
 
-      def get_removed(from_date: nil, country_iso: nil, params: {}, headers: {})
-        payload = params.merge(
-          countryISO: country_iso,
-          customerAccountId: @client.customer_account_id
-        ).select { |_, v| !v.nil? }
-        payload[:fromDate] = from_date.strftime('%FT%T') if from_date
-        @client.rest_get_with_token('/product/removed', payload, headers)
+        @client.rest_get_with_token('/products', payload, headers)
       end
     end
   end

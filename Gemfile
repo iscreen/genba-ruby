@@ -11,7 +11,6 @@ group :development do
   gem 'rake'
   gem 'webmock'
   gem 'uuidtools'
-  gem 'jwt'
 
   platforms :mri do
     # to avoid problems, bring Byebug in on just versions of Ruby under which
