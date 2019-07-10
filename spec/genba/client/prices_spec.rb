@@ -3,10 +3,10 @@
 require 'spec_helper'
 
 RSpec.describe Genba::Client::Prices do
-  it '#get_prices' do
-    stub_request(:get, /https:\/\/api.genbagames.com\/api\/prices\?customerAccountId=/)
+  it '#list' do
+    stub_request(:get, /api\/v3-0\/prices/)
       .to_return(body: ApiStubHelpers.prices)
-    prices = @client.prices.get_prices
+    prices = @client.prices.list
     expect(prices.length).to be > 0
 
     price = prices.first
