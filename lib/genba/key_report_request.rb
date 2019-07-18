@@ -39,7 +39,7 @@ class KeyReportRequest
       ETailerSellingPriceNet: @e_tailer_selling_price_net,
       ETailerSellingPriceGross: @e_tailer_selling_price_gross,
       ETailerSellingPriceCurrencyCode: @e_tailer_selling_price_currency_code,
-      ETailerSubsidiary: @e_tailer_subsidiary
+      EtailerSubsidiary: @e_tailer_subsidiary
     }.select { |_, v| !v.nil? }
 
     payload[:saleDate] = @sale_date.strftime('%FT%T') if @sale_date
