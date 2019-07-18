@@ -1,7 +1,7 @@
 # Genba Ruby
 
 [![Build Status](https://travis-ci.org/iscreen/genba-ruby.svg)](https://travis-ci.org/iscreen/genba-ruby)
-[![CircleCI](https://circleci.com/gh/iscreen/genba-ruby.svg?style=shield)](https://circleci.com/gh/iscreen/genba-ruby)
+[![CircleCI](https://circleci.com/gh/iscreen/genba-ruby.svg?style=svg)](https://circleci.com/gh/iscreen/genba-ruby)
 [![Gem Version](https://badge.fury.io/rb/genba-ruby.svg)](https://badge.fury.io/rb/genba-ruby)
 
 The Genba Library provides convenient access to the [Genba API](https://api.genbagames.com/doc/) from applications written in the Ruby language.
