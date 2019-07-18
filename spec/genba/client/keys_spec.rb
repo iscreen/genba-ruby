@@ -103,6 +103,31 @@ RSpec.describe Genba::Client::Keys do
       expect(key_res['acceptedCount']).to eq(1)
     end
 
+    it '#get_report_usage - accepted with e_tailer_subsidiary' do
+      stub_request(:post, 'https://api.genbagames.com/api/keyReport')
+        .with(body: /.*"EtailerSubsidiary":"Walmart".*/)
+        .to_return(body: ApiStubHelpers.key_report_usage_accept)
+
+      key = KeyReportRequest.new(
+        key: '00000000000000000000000000000000',
+        country_iso: 'US',
+        sale_date: DateTime.now,
+        user_ip_address: '182.212.212.22',
+        e_tailer_buying_price: 3.8,
+        e_tailer_buying_price_currency_code: 'USD',
+        e_tailer_selling_price_net: 3.2,
+        e_tailer_selling_price_gross: 3.8,
+        e_tailer_selling_price_currency_code: 'USD',
+        e_tailer_subsidiary: 'Walmart'
+      )
+      key_res = @client.keys.get_report_usage([key])
+
+      expect(key_res.key?('acceptedCount')).to be_truthy
+      expect(key_res.key?('rejectedCount')).to be_truthy
+      expect(key_res.key?('rejectedKeys')).to be_truthy
+      expect(key_res['acceptedCount']).to eq(1)
+    end
+
     it '#get_report_usage - rejected' do
       stub_request(:post, 'https://api.genbagames.com/api/keyReport')
         .to_return(body: ApiStubHelpers.key_report_usage_reject)
