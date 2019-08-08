@@ -15,6 +15,7 @@ require 'genba/activation_request'
 require 'genba/redemption_request'
 
 require 'genba/util'
+require 'genba/client/ping'
 require 'genba/client/products'
 require 'genba/client/prices'
 require 'genba/client/promotions'

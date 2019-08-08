@@ -148,6 +148,10 @@ module Genba
       return false
     end
 
+    def ping
+      Ping.new(self)
+    end
+
     def products
       Products.new(self)
     end

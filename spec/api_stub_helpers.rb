@@ -44,6 +44,10 @@ module ApiStubHelpers
     }.to_json
   end
 
+  def self.ping(sku_id = nil)
+    json_raw = fixture_file('ping.json')
+  end
+
   def self.products(sku_id = nil)
     json_raw = fixture_file('products.json')
     return json_raw unless sku_id
