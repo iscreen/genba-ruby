@@ -19,7 +19,8 @@ GENBA = Genba.client(
   resource: 'resource-0000-0000-0000-000000000000',
   account_id: 'account0-0000-0000-0000-000000000000',
   cert: 'your.domain.crt',
-  key: 'your.domain.key'
+  key: 'your.domain.key',
+  sandbox: true # default: false
 )
 ```
 

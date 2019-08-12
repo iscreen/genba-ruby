@@ -19,7 +19,7 @@ module Genba
     # * +config+ - Genba API credential attribute
     #
     # ==== Options
-    def initialize(resource:, account_id:, cert:, key:, sandbox: true, options: {})
+    def initialize(resource:, account_id:, cert:, key:, sandbox: false, options: {})
       @api_url = sandbox ? SANDBOX_API_URL : PRODUCTION_API_URL
       @resource = resource
       @account_id = account_id
@@ -40,10 +40,10 @@ module Genba
         certificate = OpenSSL::X509::Certificate.new File.open(@cert)
         x5t = Base64.encode64 OpenSSL::Digest::SHA1.new(certificate.to_der).digest
         payload = {
-          "exp": (Time.now + 60*60*24).to_i,
-          "aud": "#{@authority_url}/oauth2/token",
-          "iss": @client_id,
-          "sub": @client_id,
+          exp: (Time.now + 60*60*24).to_i,
+          aud: "#{@authority_url}/oauth2/token",
+          iss: @client_id,
+          sub: @client_id,
         }
         rsa_private = OpenSSL::PKey::RSA.new File.open(@key)
         token = JWT.encode payload, rsa_private, 'RS256', { x5t: x5t }
