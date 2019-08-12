@@ -5,6 +5,7 @@ require 'byebug'
 require 'genba'
 require 'api_stub_helpers'
 require 'uuidtools'
+require 'active_support/all'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -18,13 +19,17 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    crt_path = File.join(Dir.pwd, 'tmp/fake_cert.crt')
+    key_path = File.join(Dir.pwd, 'tmp/fake_cert.key')
+    ApiStubHelpers.certification(crt_path, key_path)
+
     @client = Genba.client(
-      username: 'api_genba_user',
-      app_id: '00000000-0000-0000-0000-000000000000',
-      api_key: '00000000000000000000000000000000',
-      customer_account_id: '00000000000000000000000000000000'
+      resource: 'resource-0000-0000-0000-000000000000',
+      account_id: 'account-0000-0000-0000-000000000000',
+      cert: crt_path,
+      key: key_path
     )
-    stub_request(:post, 'https://api.genbagames.com/api/token')
+    stub_request(:post, 'https://login.microsoftonline.com/aad.genbadigital.io/oauth2/token')
       .to_return(body: ApiStubHelpers.token)
   end
 end

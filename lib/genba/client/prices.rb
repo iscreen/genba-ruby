@@ -2,16 +2,17 @@
 
 module Genba
   class Client
-    # Prices client
     class Prices
       def initialize(client)
         @client = client
       end
 
-      def get_prices(params = {}, headers = {})
-        payload = params.merge(
-          customerAccountId: @client.customer_account_id
-        )
+      # Gets a collection of prices
+      def list(continuation_token: nil, params: {}, headers: {})
+        payload = {
+          continuationtoken: continuation_token
+        }.select { |_, v| !v.nil? }.merge(params)
+
         @client.rest_get_with_token('/prices', payload, headers)
       end
     end

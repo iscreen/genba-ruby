@@ -6,7 +6,8 @@ module Genba
     attr_accessor :customer_account_id,
                   :open_timeout, :read_timeout, :max_retry, :retry_delay
 
-    API_URL = 'https://api.genbagames.com/api'.freeze
+    SANDBOX_API_URL = 'https://sandbox.genbadigital.io/api/v3-0'.freeze
+    PRODUCTION_API_URL = 'https://api.genbadigital.io/api/v3-0'.freeze
 
     @expires_on = nil
     @id_token = nil
@@ -18,11 +19,16 @@ module Genba
     # * +config+ - Genba API credential attribute
     #
     # ==== Options
-    def initialize(app_id:, username:, api_key:, customer_account_id:, options: {})
-      @app_id = app_id.strip
-      @username = username.strip
-      @api_key = api_key.strip
-      @customer_account_id = customer_account_id.strip
+    def initialize(resource:, account_id:, cert:, key:, sandbox: false, options: {})
+      @api_url = sandbox ? SANDBOX_API_URL : PRODUCTION_API_URL
+      @resource = resource
+      @account_id = account_id
+      @cert = cert
+      @key = key
+      @tenant = 'aad.genbadigital.io'
+      @authority_url = "https://login.microsoftonline.com/#{@tenant}"
+      @client_id = "https://aad-snd.genbadigital.io/#{@account_id}"
+
       @open_timeout = options[:open_timeout] || 15
       @read_timeout = options[:read_timeout] || 60
       @max_retry = options[:max_retry] || 0
@@ -31,22 +37,42 @@ module Genba
 
     def generate_token
       unless token_valid?
-        body = { appId: @app_id, signature: genba_signature }
+        certificate = OpenSSL::X509::Certificate.new File.open(@cert)
+        x5t = Base64.encode64 OpenSSL::Digest::SHA1.new(certificate.to_der).digest
+        payload = {
+          exp: (Time.now + 60*60*24).to_i,
+          aud: "#{@authority_url}/oauth2/token",
+          iss: @client_id,
+          sub: @client_id,
+        }
+        rsa_private = OpenSSL::PKey::RSA.new File.open(@key)
+        token = JWT.encode payload, rsa_private, 'RS256', { x5t: x5t }
+
+        body = {
+          resource: @resource,
+          client_id: @client_id,
+          grant_type: 'client_credentials',
+          scope: 'https://graph.microsoft.com/.default',
+          client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+          client_assertion: token,
+          tenant: @tenant
+        }
+
         response = RestClient.post(
-          "#{API_URL}/token",
+          "#{@authority_url}/oauth2/token",
           body,
           headers: { accept: 'application/json', 'Content-Type': 'application/json' }
         )
         parsed_response = decode_json(response.body)
-        @id_token = parsed_response['token']
-        @expires_on = Time.parse(parsed_response['expiration'])
+        @id_token = parsed_response['access_token']
+        @expires_on = Time.at(parsed_response['expires_on'].to_i)
       end
       raw_token
     end
 
     def rest_get_with_token(path, query_params = {}, headers = {}, options = {})
       genba_headers = token.merge(headers)
-      api_url = "#{API_URL}#{path}"
+      api_url = "#{@api_url}#{path}"
       api_url += "?#{query_params.to_query}" unless query_params.empty?
       response = execute_request(method: :get, url: api_url,
                                  headers: genba_headers, options: options)
@@ -55,14 +81,14 @@ module Genba
 
     def rest_put_with_token(path, body = {}, headers = {}, options = {})
       genba_headers = token.merge(headers)
-      response = execute_request(method: :put, url: "#{API_URL}#{path}",
+      response = execute_request(method: :put, url: "#{@api_url}#{path}",
                                  payload: encode_json(body), headers: genba_headers, options: options)
       from_rest_client_response(response)
     end
 
     def rest_post_with_token(path, body = {}, headers = {}, options = {})
       genba_headers = token.merge(headers)
-      response = execute_request(method: :post, url: "#{API_URL}#{path}",
+      response = execute_request(method: :post, url: "#{@api_url}#{path}",
                                  payload: encode_json(body), headers: genba_headers, options: options)
       from_rest_client_response(response)
     end
@@ -93,7 +119,13 @@ module Genba
       num_try = 0
       begin
         response = RestClient::Request.execute(request_opts)
-      rescue StandardError => e
+      rescue RestClient::Exception, SocketError, Errno::ECONNREFUSED, NoMethodError => e
+        if e.class.parent == RestClient && valid_json?(e.http_body)
+          Genba::Util.log_error "#{e.class} => #{e.message}\n#{e.http_body}"
+          raise e
+          # response = OpenStruct.new(code: e.http_code, body: e.http_body, headers: {})
+          # return response
+        end
         Genba::Util.log_error "#{e.class} => #{e.message}"
 
         num_try += 1
@@ -109,6 +141,17 @@ module Genba
       response
     end
 
+    def valid_json?(json)
+      JSON.parse(json)
+      return true
+    rescue JSON::ParserError => e
+      return false
+    end
+
+    def ping
+      Ping.new(self)
+    end
+
     def products
       Products.new(self)
     end
@@ -117,20 +160,20 @@ module Genba
       Prices.new(self)
     end
 
-    def restrictions
-      Restrictions.new(self)
+    def promotions
+      Promotions.new(self)
     end
 
-    def keys
-      Keys.new(self)
+    def reservations
+      Reservations.new(self)
     end
 
-    def direct_entitlements
-      DirectEntitlements.new(self)
+    def orders
+      Orders.new(self)
     end
 
-    def reports
-      Reports.new(self)
+    def direct_entitlement
+      DirectEntitlement.new(self)
     end
 
     private
@@ -143,22 +186,10 @@ module Genba
       Oj.load(json)
     end
 
-    def genba_signature
-      cipher = Mcrypt.new(
-        :rijndael_256,
-        :cbc,
-        Digest::SHA256.digest(@username),
-        Digest::SHA256.digest(@app_id)
-      )
-      encrypted = cipher.encrypt(@api_key)
-      Base64.strict_encode64(encrypted)
-    end
-
     def raw_token
       if token_valid?
         {
-          token: @id_token,
-          appId: @app_id,
+          Authorization: "Bearer #{@id_token}",
           accept: 'application/json',
           'Content-Type': 'application/json'
         }
@@ -177,8 +208,7 @@ module Genba
     end
 
     def from_rest_client_response(response)
-      if response.code < 200 &&
-         response.code >= 400
+      if response.code < 200
         Genba::Util.log_error "Invalid response object from API: #{response.body}" \
             "(HTTP response code was #{response.code})"
         raise "Invalid response object from API: #{response.body}" \
