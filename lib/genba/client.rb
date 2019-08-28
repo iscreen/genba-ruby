@@ -3,8 +3,12 @@
 module Genba
   # Genba API Client
   class Client
-    attr_accessor :customer_account_id,
-                  :open_timeout, :read_timeout, :max_retry, :retry_delay
+    attr_reader :sandbox, :api_url,
+                :resource, :account_id,
+                :cert, :key,
+                :tenant,
+                :authority_url, :client_id
+    attr_accessor :open_timeout, :read_timeout, :max_retry, :retry_delay
 
     SANDBOX_API_URL = 'https://sandbox.genbadigital.io/api/v3-0'.freeze
     PRODUCTION_API_URL = 'https://api.genbadigital.io/api/v3-0'.freeze
@@ -20,7 +24,8 @@ module Genba
     #
     # ==== Options
     def initialize(resource:, account_id:, cert:, key:, sandbox: false, options: {})
-      @api_url = sandbox ? SANDBOX_API_URL : PRODUCTION_API_URL
+      @sandbox = sandbox
+      @api_url = @sandbox ? SANDBOX_API_URL : PRODUCTION_API_URL
       @resource = resource
       @account_id = account_id
       @cert = cert

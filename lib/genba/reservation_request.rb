@@ -18,7 +18,7 @@ module Genba
           end
           optional(:ConsumerIP).maybe(:str?)
           required(:CountryCode).filled(:str?)
-          optional(:EtailerID).filled(:str?)
+          optional(:EtailerID).maybe(:str?)
         end
       end
     end

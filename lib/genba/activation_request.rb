@@ -19,7 +19,7 @@ module Genba
             required(:GrossAmount).filled(:float?)
             required(:CurrencyCode).filled(:str?)
           end
-          optional(:EtailerID).filled(:str?)
+          optional(:EtailerID).maybe(:str?)
         end
         optional(:Redemption).schema do
           required(:EndUserID).filled(:str?)

@@ -17,8 +17,8 @@ module Genba
             required(:CurrencyCode).filled(:str?)
           end
           optional(:ConsumerIP).maybe(:str?)
-          required(:CountryCode).filled(:str?)
-          optional(:EtailerID).filled(:str?)
+          required(:CountryCode).filled(:str?) # require and can not be nil or empty
+          optional(:EtailerID).maybe(:str?) # optional and can be nil or empty
         end
         optional(:ReservationID).filled(:str?)
       end
