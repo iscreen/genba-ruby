@@ -20,6 +20,7 @@ module Genba
         e_tailer_selling_price_net:,
         e_tailer_selling_price_gross:,
         e_tailer_selling_price_currency_code:,
+        e_tailer_subsidiary: nil,
         headers: {},
         options: {}
       )
@@ -34,7 +35,8 @@ module Genba
           ETailerBuyingPriceCurrencyCode: e_tailer_buying_price_currency_code,
           ETailerSellingPriceNet: e_tailer_selling_price_net,
           ETailerSellingPriceGross: e_tailer_selling_price_gross,
-          ETailerSellingPriceCurrencyCode: e_tailer_selling_price_currency_code
+          ETailerSellingPriceCurrencyCode: e_tailer_selling_price_currency_code,
+          EtailerSubsidiary: e_tailer_subsidiary
         }.select { |_, v| !v.nil? }
         params[:saleDate] = sale_date.strftime('%FT%T') if sale_date
         Genba::Util.log_debug "DirectEntitlements activate payload: #{params.inspect}"
